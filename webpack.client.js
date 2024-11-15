@@ -1,13 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ReactServerWebpackPlugin = require('react-server-dom-webpack/plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: './src/client/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/client'),
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'assets/[hash][ext][query]',
     clean: true,
@@ -33,33 +34,23 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource',
       },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader',
-      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './public/index.html',
       inject: 'body',
       minify: isProduction,
     }),
+    new ReactServerWebpackPlugin({ isServer: false }),
     ...(isProduction ? [new MiniCssExtractPlugin()] : []),
   ],
   devtool: isProduction ? 'source-map' : 'inline-source-map',
   devServer: {
-    static: './dist',
+    static: './dist/client',
     hot: true,
     open: true,
     historyApiFallback: true,
   },
   mode: isProduction ? 'production' : 'development',
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
 };
