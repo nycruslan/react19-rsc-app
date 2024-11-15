@@ -15,15 +15,16 @@ const PORT = process.env.PORT || 3000;
 // Serve static files from the client build directory
 app.use(express.static(path.resolve(__dirname, '../client')));
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   const html = fs.readFileSync(
     path.resolve(__dirname, '../client/index.html'),
     'utf-8'
   );
+
   res.send(html);
 });
 
-app.get('/react', (req, res) => {
+app.get('/react', (_req, res) => {
   const clientManifestPath = path.resolve(
     __dirname,
     '../client/react-client-manifest.json'

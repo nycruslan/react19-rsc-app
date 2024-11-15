@@ -1,3 +1,5 @@
+'use client';
+
 import Posts from './Posts';
 import Counter from './Counter';
 import '../styles.css';
