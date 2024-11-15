@@ -1,7 +1,7 @@
 {
-  "name": "react19-app",
+  "name": "react19-rsc-app",
   "version": "1.0.0",
-  "description": "A React 19 application with TypeScript and Webpack",
+  "description": "A React 19 RSC with TypeScript and Webpack",
   "main": "index.js",
   "scripts": {
     "build:client": "webpack --config webpack.client.js",
